@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html ng-app="todoApp">
+
+<head>
+    <script src="jquery.min.js"></script>
+    <script src="angular.min.js"></script>
+    <script src="underscore.min.js"></script>
+    <script src="todo.js"></script>
+    <script src="gmail.js"></script>
+    <script src="https://apis.google.com/js/client.js?onload=checkAuth"></script>
+</head>
+
+<body>
+    <div id="authorize-div" style="display: none">
+        <span>Authorize access to Gmail API</span>
+        <!--Button for the user to click to initiate auth sequence -->
+        <button id="authorize-button" onclick="handleAuthClick(event)">
+            Authorize
+        </button>
+    </div>
+    <p>Welcome to Secret Santa!</p>
+    <p>Add your names!</p>
+    <div ng-controller="TodoListController as todoList">
+        <span>Number of people: {{todoList.todos.length}}</span>
+        <ul class="unstyled">
+            <li ng-repeat="todo in todoList.todos">
+                <span class="done-{{todo.done}}">{{todo.name}} ({{todo.text}})</span>  
+            </li>
+        </ul>
+        <form ng-submit="todoList.addTodo()">
+            <input type="text" ng-model="todoList.n" size="15" placeholder="Name">
+            <input type="text" ng-model="todoList.todoText" size="25" placeholder="Email">
+            <input class="btn-primary" type="submit" value="add">
+        </form>
+        <br>
+        <button ng-click="todoList.assignment()"> Ready?</button>
+    </div>
+</body>
+</html>
